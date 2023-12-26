@@ -23,28 +23,25 @@ To get started with the game, follow these steps:
 
 1. Clone the repository:
 
-   ````bash
+   ```bash
    git clone https://github.com/0mar-helal/Advanced-Tic-Tac-Toe.git
-   ```
 
-   ````
+   ```
 
 2. Install the dependencies:
 
-   ````bash
+   ```bash
    cd Advanced-Tic-Tac-Toe
    npm install
-   ```
 
-   ````
+   ```
 
 3. Start the development server:
 
-   ````bash
+   ```bash
    npm run dev
-   ```
 
-   ````
+   ```
 
 4. Open your browser and navigate to `http://localhost:3000` to play the game.
 
