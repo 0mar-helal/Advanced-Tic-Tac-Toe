@@ -8,14 +8,18 @@ export const depth = {
 };
 export const players = {
   X: (
-    <IoCloseSharp className="w-[130px] h-[130px] animate-[show_0.25s_forwards] " />
+    <IoCloseSharp className="w-[100px] h-[100px] sm:w-[130px] sm:h-[130px] animate-[show_0.25s_forwards] " />
   ),
   O: (
-    <MdOutlineCircle className="w-[100px] h-[100px] animate-[show_0.25s_forwards]" />
+    <MdOutlineCircle className="w-[70px] h-[70px] sm:w-[100px] sm:h-[100px] animate-[show_0.25s_forwards]" />
   ),
 };
 
 export const hoverPlayers = {
-  X: <IoCloseSharp className="w-[130px] h-[130px] opacity-40" />,
-  O: <MdOutlineCircle className="w-[100px] h-[100px] opacity-40" />,
+  X: (
+    <IoCloseSharp className="w-[100px] h-[100px] sm:w-[130px] sm:h-[130px] opacity-40" />
+  ),
+  O: (
+    <MdOutlineCircle className="w-[70px] h-[70px] sm:w-[100px] sm:h-[100px] opacity-40" />
+  ),
 };

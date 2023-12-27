@@ -139,7 +139,7 @@ const GameBoard = () => {
                   : null
               }
               key={j}
-              className="bg-black h-[130px] w-[140px] flex justify-center items-center text-white font-bold"
+              className="bg-black h-[100px] w-[100px] sm:w-[140px] sm:h-[130px] flex justify-center items-center text-white font-bold"
             >
               {hoverState[i][j] && sqaure === null ? getHoverPlayer() : null}
               {sqaure}
@@ -149,7 +149,7 @@ const GameBoard = () => {
       </ul>
       <div className="flex justify-center items-center">
         <Link
-          className="flex items-center justify-center gap-3 text-lg rounded py-3 px-4 border-2 border-white border-solid bg-black shadow-white text-white hover:bg-white hover:text-black transition-all"
+          className="flex items-center justify-center gap-3 text-lg sm:text-xl rounded-full py-2 px-4 sm:py-4 sm:px-6 border-2 border-white border-solid bg-black shadow-white text-white hover:bg-white hover:text-black transition-all"
           to="/"
         >
           <TbReload />

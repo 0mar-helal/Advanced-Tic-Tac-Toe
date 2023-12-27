@@ -20,6 +20,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background-color: black;
+  overflow: hidden;
 }
 
 @media (prefers-color-scheme: light) {
