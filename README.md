@@ -47,7 +47,7 @@ To get started with the game, follow these steps:
 
    ```
 
-4. Open your browser and navigate to `http://localhost:3000` to play the game.
+4. Open your browser and navigate to `http://localhost:5173` to play the game.
 
 ## Acknowledgements
 
