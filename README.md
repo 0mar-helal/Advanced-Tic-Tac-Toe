@@ -2,6 +2,10 @@
 
 This repository contains an implementation of an advanced Tic-Tac-Toe game. The game is built using React and Vite, providing a user-friendly and interactive interface for playing Tic-Tac-Toe.
 
+## Live Demo
+
+You can access the live demo by following this link: [Tic Tac Toe Demo ↗](https://tic-tac-toe-okvc.onrender.com)
+
 ## Features
 
 - Play Tic-Tac-Toe against an AI opponent or another player in a 2-player game
