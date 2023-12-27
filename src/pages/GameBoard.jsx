@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { depth, hoverPlayers, players } from "../utils/constants";
 import { EndGame, editElement, isGameOver, makeMove } from "../utils/functions";
 import { DataContainer } from "../context/AppContext";
@@ -13,6 +13,11 @@ const GameBoard = () => {
     [null, null, null],
     [null, null, null],
   ]);
+  const boardRefs = [
+    [useRef(null), useRef(null), useRef(null)],
+    [useRef(null), useRef(null), useRef(null)],
+    [useRef(null), useRef(null), useRef(null)],
+  ];
   const [count, setCount] = useState(0);
 
   const [countGames, setCountGames] = useState(0);
@@ -37,6 +42,7 @@ const GameBoard = () => {
     editElement(setBoard, i, j, choosePlayer);
     setCount(count + 1);
   };
+
   const handleClickForComputer = (i, j) => {
     editElement(setBoard, i, j, players.O);
     setIsComputerTurn(!isComputerTurn);
@@ -94,7 +100,7 @@ const GameBoard = () => {
 
   // for every change in board
   useEffect(() => {
-    const gameOverResult = isGameOver(board);
+    const gameOverResult = isGameOver(board, boardRefs);
     if (gameOverResult === "X") {
       EndGame(setBoard, setIsClickable, setCountGames, setCount);
       handleIncreaseScore("X");
@@ -122,6 +128,7 @@ const GameBoard = () => {
         {board.map((row, i) => {
           return row.map((sqaure, j) => (
             <li
+              ref={boardRefs[i][j]}
               onMouseEnter={() => handleMouseEnter(i, j)}
               onMouseLeave={() => handleMouseLeave(i, j)}
               onClick={() =>

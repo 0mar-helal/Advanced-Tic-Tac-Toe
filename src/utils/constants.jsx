@@ -8,7 +8,7 @@ export const depth = {
 };
 export const players = {
   X: (
-    <IoCloseSharp className="w-[130px] h-[130px] animate-[show_0.25s_forwards]" />
+    <IoCloseSharp className="w-[130px] h-[130px] animate-[show_0.25s_forwards] " />
   ),
   O: (
     <MdOutlineCircle className="w-[100px] h-[100px] animate-[show_0.25s_forwards]" />

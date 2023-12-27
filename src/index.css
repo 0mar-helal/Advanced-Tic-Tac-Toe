@@ -35,6 +35,23 @@ body {
   }
 }
 
+.winner-animate {
+  animation: blink 1s;
+}
+
+@keyframes blink {
+  0%,
+  40%,
+  80% {
+    opacity: 0;
+  }
+  20%,
+  50%,
+  100% {
+    opacity: 1;
+  }
+}
+
 @keyframes show {
   0% {
     transform: scale(0.5);

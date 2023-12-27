@@ -1,6 +1,16 @@
 import { players } from "./constants";
 
-export const isGameOver = (board) => {
+const reduceOpacity = (boardRefs) => {
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+      const value = boardRefs[i][j].current.firstChild;
+      if (value && !value.classList.contains("winner-animate"))
+        boardRefs[i][j].current.firstChild.style.cssText = "opacity:0.5;";
+    }
+  }
+};
+
+export const isGameOver = (board, boardRefs) => {
   // Check rows
   for (let i = 0; i < 3; i++) {
     if (
@@ -8,6 +18,11 @@ export const isGameOver = (board) => {
       board[i][0] === board[i][1] &&
       board[i][1] === board[i][2]
     ) {
+      setTimeout(() => {
+        for (let j = 0; j < 3; j++)
+          boardRefs[i][j].current.firstChild.classList.add("winner-animate");
+        reduceOpacity(boardRefs);
+      }, 200);
       if (board[i][0] === players.X) {
         return "X";
       } else return "O";
@@ -21,6 +36,11 @@ export const isGameOver = (board) => {
       board[0][j] === board[1][j] &&
       board[1][j] === board[2][j]
     ) {
+      setTimeout(() => {
+        for (let i = 0; i < 3; i++)
+          boardRefs[i][j].current.firstChild.classList.add("winner-animate");
+        reduceOpacity(boardRefs);
+      }, 200);
       if (board[0][j] === players.X) {
         return "X";
       } else return "O";
@@ -33,6 +53,16 @@ export const isGameOver = (board) => {
     board[0][0] === board[1][1] &&
     board[1][1] === board[2][2]
   ) {
+    setTimeout(() => {
+      for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+          if (i === j) {
+            boardRefs[i][j].current.firstChild.classList.add("winner-animate");
+          }
+        }
+      }
+      reduceOpacity(boardRefs);
+    }, 200);
     if (board[0][0] === players.X) {
       return "X";
     } else return "O";
@@ -42,6 +72,17 @@ export const isGameOver = (board) => {
     board[0][2] === board[1][1] &&
     board[1][1] === board[2][0]
   ) {
+    setTimeout(() => {
+      for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+          if (i + j === 2) {
+            boardRefs[i][j].current.firstChild.classList.add("winner-animate");
+          }
+        }
+      }
+      reduceOpacity(boardRefs);
+    }, 200);
+
     if (board[0][2] === players.X) {
       return "X";
     } else return "O";
@@ -62,17 +103,6 @@ export const isGameOver = (board) => {
   }
 
   return "T";
-};
-
-export const isBoardFull = (board) => {
-  for (let row = 0; row < board.length; row++) {
-    for (let col = 0; col < board[row].length; col++) {
-      if (board[row][col] === null) {
-        return false; // Found an empty cell, board is not full
-      }
-    }
-  }
-  return true; // No empty cells found, board is full
 };
 
 export const editElement = (setGrid, rowIndex, columnIndex, newValue) => {
@@ -153,13 +183,81 @@ export const evaluateBoard = (board) => {
       return -1;
     }
   }
+  // Check if the board is full
+  let isFull = true;
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+      if (board[i][j] === null) {
+        isFull = false;
+        break;
+      }
+    }
+    if (!isFull) {
+      return null;
+    }
+  }
 
   // It's a tie
   return 0;
 };
+export const isGameOverForMinimax = (board) => {
+  // Check rows for a win
+  for (let i = 0; i < 3; i++) {
+    if (
+      board[i][0] !== null &&
+      board[i][0] === board[i][1] &&
+      board[i][1] === board[i][2]
+    ) {
+      return true;
+    }
+  }
+
+  // Check columns for a win
+  for (let j = 0; j < 3; j++) {
+    if (
+      board[0][j] !== null &&
+      board[0][j] === board[1][j] &&
+      board[1][j] === board[2][j]
+    ) {
+      return true;
+    }
+  }
+
+  // Check diagonals for a win
+  if (
+    board[0][0] !== null &&
+    board[0][0] === board[1][1] &&
+    board[1][1] === board[2][2]
+  ) {
+    return true;
+  }
+  if (
+    board[0][2] !== null &&
+    board[0][2] === board[1][1] &&
+    board[1][1] === board[2][0]
+  ) {
+    return true;
+  }
+  // Check if the board is full
+  let isFull = true;
+  for (let i = 0; i < 3; i++) {
+    for (let j = 0; j < 3; j++) {
+      if (board[i][j] === null) {
+        isFull = false;
+        break;
+      }
+    }
+    if (!isFull) {
+      return false;
+    }
+  }
+
+  // It's a tie
+  return true;
+};
 
 export const minimax = (isMaximizing, board, depth) => {
-  if (isGameOver(board) || depth === 0) {
+  if (isGameOverForMinimax(board) || depth === 0) {
     return evaluateBoard(board);
   }
 
@@ -195,7 +293,7 @@ export const minimax = (isMaximizing, board, depth) => {
 export const makeMove = (board, setBoard, depth) => {
   let bestScore = Number.MIN_SAFE_INTEGER;
   let bestMoveRow, bestMoveCol;
-  if (isGameOver(board)) {
+  if (evaluateBoard(board)) {
     return 0;
   }
 

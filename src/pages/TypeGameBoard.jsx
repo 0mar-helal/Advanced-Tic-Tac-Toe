@@ -6,8 +6,8 @@ const TypeGameBoard = () => {
   const { setGameType } = useContext(DataContainer);
   return (
     <div className="max-w-2xl flex flex-col gap-5 justify-center items-center text-center text-white">
-      <h1 className="text-5xl mb-6">Choose Game Type</h1>
-      <div className="flex gap-2 justify-around w-full">
+      <h1 className="text-4xl sm:text-5xl mb-6">Choose Game Type</h1>
+      <div className="flex flex-wrap gap-4 w-fit mx-auto">
         <Link
           to="/game/begin"
           onClick={() => setGameType("2 player")}
